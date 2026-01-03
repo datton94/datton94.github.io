@@ -3,7 +3,7 @@ layout: post
 title: Hello World, This Is My DevOps Learning Log
 ---
 
-# Hello World, This Is My DevOps Learning Log
+# Introduction
 
 Hi, I am **Dat**. I am a DevOps Engineer based in Ho Chi Minh City, Vietnam.
 
