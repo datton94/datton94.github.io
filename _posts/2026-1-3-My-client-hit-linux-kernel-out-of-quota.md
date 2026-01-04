@@ -222,3 +222,7 @@ Since we are on AWS EKS, I couldn't just SSH in and change it manually (because 
 
 After the update, the squeezed metric dropped, and the cURL errors disappeared. The issue was finally resolved.
 
+> If you found this helpful, let's connect on LinkedIn. P.S. I am always open to discussing interesting technical challenges or infrastructure consulting opportunities. If your team is facing similar issues, feel free to drop me a message.<br>
+> Email: [datton94@gmail.com](mailto:datton94@gmail.com)<br>
+> Github: [datton94](https://github.com/datton94)<br>
+> LinkedIn: [Dat Ton](https://www.linkedin.com/in/dat-ton-that-thanh-928704111/)

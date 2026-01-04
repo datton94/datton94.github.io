@@ -54,3 +54,7 @@ If you spot any mistakes, please let me know. I am always happy to fix them and 
 If you work in DevOps, SRE, Platform Engineering, or Cloud, I would love to connect with you.
 
 Thanks for reading. My next post will be a practical guide something you can use at work immediately, not just theory.
+
+Email: [datton94@gmail.com](mailto:datton94@gmail.com)<br>
+Github: [datton94](https://github.com/datton94)<br>
+LinkedIn: [Dat Ton](https://www.linkedin.com/in/dat-ton-that-thanh-928704111/)
