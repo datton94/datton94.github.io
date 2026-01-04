@@ -9,6 +9,7 @@ tags:
   - aws
   - eks
   - ec2
+canonical_url: https://datton94.github.io/My-client-hit-linux-kernel-out-of-quota/
 ---
 
 # The issue

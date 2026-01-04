@@ -7,6 +7,7 @@ tags:
   - istio
   - aws
   - kubernetes
+canonical_url: https://datton94.github.io/troubleshooting-istio-503-upstream-connect-errors-with-exterenal-domains/
 ---
 
 # The Error
