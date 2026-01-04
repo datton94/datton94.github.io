@@ -4,7 +4,7 @@ title: About
 permalink: /about/
 ---
 
-Hi, I am **Dat**. I am a DevOps Engineer based in Ho Chi Minh City, Vietnam.
+Hi, I am **Dat**. I am a DevOps Engineer based in Ho Chi Minh City, Vietnam, specializing in building robust systems and solving complex infrastructure challenges.
 
 This blog is my public notebook. My goal is simple: I want to keep learning, grow my career, and share my knowledge with people all over the world.
 
@@ -52,7 +52,13 @@ If you spot any mistakes, please let me know. I am always happy to fix them and 
 
 If you work in DevOps, SRE, Platform Engineering, or Cloud, I would love to connect with you.
 
+Also, I enjoy solving complex infrastructure puzzles. If your startup needs a hand with **Kubernetes stability** or **Cloud Cost Optimization**, I am open to **consulting collaborations**.
+
 Thanks for reading. My next post will be a practical guide something you can use at work immediately, not just theory.
+
+Email: [datton94@gmail.com](mailto:datton94@gmail.com)<br>
+Github: [datton94](https://github.com/datton94)<br>
+LinkedIn: [Dat Ton](https://www.linkedin.com/in/dat-ton-that-thanh-928704111/)
 
 ## More Information
 
@@ -63,8 +69,3 @@ Later, I moved into DevOps, where I worked with Docker, Kubernetes, and AWS. I b
 Now, I’m a Senior Platform Engineer, managing EKS and Rancher clusters, automating security patching, and building centralized monitoring with Grafana and VictoriaMetrics. I also enjoy mentoring others, like training new engineers on Terraform.
 
 I have 8 years of experience in total for my IT career, with 6 years as a DevOps/Platform engineer, and I want to continue enjoying this journey for the next 15 years. For me, the best part of DevOps is solving problems and learning new tools. I like challenges and always want to make systems more reliable and scalable.
-## Contact me
-
-Email: [datton94@gmail.com](mailto:datton94@gmail.com)<br>
-Github: [datton94](https://github.com/datton94)<br>
-LinkedIn: [Dat Ton](https://www.linkedin.com/in/dat-ton-that-thanh-928704111/)
