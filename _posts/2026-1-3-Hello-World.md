@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: Hello World, This Is My DevOps Learning Log
 ---
 

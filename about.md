@@ -1,12 +1,60 @@
 ---
-layout: page
+layout: default
 title: About
 permalink: /about/
 ---
 
-Hard-working and adaptable DevOps/Platform Engineer with hands-on experience in cloud infrastructure, Kubernetes, and automation. Eager to learn new technologies and continuously improve skills to deliver reliable, scalable solutions.
+Hi, I am **Dat**. I am a DevOps Engineer based in Ho Chi Minh City, Vietnam.
 
-### More Information
+This blog is my public notebook. My goal is simple: I want to keep learning, grow my career, and share my knowledge with people all over the world.
+
+## Why I started this blog
+
+The DevOps world moves very fast. New tools appear, old tools change, and cloud services get updates every day.
+
+I realized that if I only learn in my head, I will eventually forget. But if I write it down, I remember better. And if I share it here, maybe it can help you too.
+
+This blog will be practical and honest. When I make mistakes, I will share them. When I find a better solution, I will update my notes.
+
+## Who I am
+
+I have over **7 years of experience** working with cloud and infrastructure. My main focus is on:
+
+* **Cloud:** AWS and Microsoft Azure
+* **Kubernetes:** EKS, AKS, Rancher RKE2
+* **IaC:** Terraform, Ansible, CloudFormation
+* **Observability:** VictoriaMetrics, Prometheus, Grafana, Alertmanager, Loki
+* **CI/CD & GitOps:** Argo CD, GitLab CI, GitHub Actions, Azure DevOps
+* **Scripting:** Bash, Python, Go
+
+In the past, I helped teams migrate platforms, manage multiple Kubernetes clusters, improve monitoring, and optimize cloud costs. Recently, I have also been experimenting with **AI-driven automation** to help with cluster operations.
+
+## What you will find here
+
+I plan to write about real-world scenarios, such as:
+
+* Designing Kubernetes platforms for production workloads.
+* Performing safe cluster upgrades with zero downtime.
+* Building scalable monitoring systems (metrics, logs, alerts).
+* Writing clean and safe Terraform modules.
+* Creating fast, easy-to-debug CI/CD pipelines.
+* Controlling cloud costs without reducing performance.
+* Simple scripts and tools that save time.
+* Experiments with AI agents for Ops: what works and what fails.
+
+## A note on my writing
+
+English is not my first language, so I will use simple words. My priority is **clarity**, not fancy writing.
+
+If you spot any mistakes, please let me know. I am always happy to fix them and learn.
+
+## Let's connect
+
+If you work in DevOps, SRE, Platform Engineering, or Cloud, I would love to connect with you.
+
+Thanks for reading. My next post will be a practical guide something you can use at work immediately, not just theory.
+
+## More Information
 
 I started my career in IT support and system administration, taking care of networks, servers, and firewalls. That gave me a good foundation in how systems work.
 
@@ -15,6 +63,8 @@ Later, I moved into DevOps, where I worked with Docker, Kubernetes, and AWS. I b
 Now, I’m a Senior Platform Engineer, managing EKS and Rancher clusters, automating security patching, and building centralized monitoring with Grafana and VictoriaMetrics. I also enjoy mentoring others, like training new engineers on Terraform.
 
 I have 8 years of experience in total for my IT career, with 6 years as a DevOps/Platform engineer, and I want to continue enjoying this journey for the next 15 years. For me, the best part of DevOps is solving problems and learning new tools. I like challenges and always want to make systems more reliable and scalable.
-### Contact me
+## Contact me
 
-[datton94@gmail.com](mailto:datton94@gmail.com)
+Email: [datton94@gmail.com](mailto:datton94@gmail.com)<br>
+Github: [datton94](https://github.com/datton94)<br>
+LinkedIn: [Dat Ton](https://www.linkedin.com/in/dat-ton-that-thanh-928704111/)

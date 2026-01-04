@@ -1,0 +1,54 @@
+<head>
+  <title>{{ page.title }} | {{ site.title }}</title>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{{ '/assets/darkmodepastel.css' | relative_url }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Yeseva+One&display=swap" rel="stylesheet">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js"></script>
+<script defer src="{{ '/assets/js/zoom.js' | relative_url }}"></script>
+</head>
+
+<style>
+  /* --- 1. Fix Huge Images --- */
+  /* Force images to never exceed the width of the article */
+  img, p img {
+    max-width: 100% !important;
+    height: auto !important;
+    display: block;
+    margin: 1rem auto;
+  }
+
+  /* --- 2. Fix Code Block Overflow --- */
+  /* This targets the outer container of the code block */
+  div.highlighter-rouge, 
+  div.highlight,
+  figure.highlight,
+  pre.highlight {
+    max-width: 100% !important;
+    overflow-x: auto !important; /* Forces a scrollbar if text is too long */
+    white-space: pre;            /* Keeps the formatting */
+    word-wrap: normal;
+    display: block;
+    padding: 10px;
+    background: #1a1a1a;         /* Dark background for contrast */
+    border-radius: 6px;
+  }
+
+  /* This targets the code text itself */
+  pre, code {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  
+  /* --- 3. Fix YAML specific blocks --- */
+  /* Sometimes YAML renders differently, this catches it */
+  .language-yaml .highlight {
+    overflow-x: auto !important;
+  }
+</style>
+
+<link rel="stylesheet" href="{{ '/assets/css/rouge.css' | relative_url }}">
+<link rel="stylesheet" href="{{ '/assets/css/custom.css' | relative_url }}">

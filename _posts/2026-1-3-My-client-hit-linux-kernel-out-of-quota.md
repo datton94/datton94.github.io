@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: How My Client Hit Linux Kernel Network Limits on AWS EKS
 ---
 
@@ -36,7 +36,7 @@ According this cURL doc https://curl.se/libcurl/c/libcurl-errors.html , the 65 e
 
 From my understanding, `cURL 65` is usually a side effect of something worse. Imagine the application is sending data, and suddenly something goes wrong with the network. The data stream is interrupted, and cURL tries to "rewind" to send it again, but fails.
 
-I checked the ELK logs and found around 15,000 of these cURL 65 events. That is too many. This suggested a serious network issue, even though the connection was just Pod-to-Pod inside the cluster.
+I checked the ELK logs and found around 15k of these `cURL 65` events. That is too many. This suggested a serious network issue, even though the connection was just Pod-to-Pod inside the cluster.
 
 The client's application technically needs to run thousands of cURL commands because that is their business logic. Since there were so many requests, it was tricky to find the original error that triggered the rewind failure.
 
@@ -52,7 +52,7 @@ I could see their application consumed a lot of bandwidth, around `200 MB` to `2
 
 I wondered: Did the network bandwidth of the EC2 instance (EKS worker nodes) exceed the limit?
 
-I am using `t3a.2xlarge` instances as worker nodes. This type provides network bandwidth up to 5 Gbps, which is roughly `600 MB` per second. So, 200MB per 60 seconds is extremely small compared to the limit. Bandwidth was not the problem.
+I am using `t3a.2xlarge` instances as worker nodes. This type provides network bandwidth up to 5 Gbps, which is roughly `600 MB` per second. So, `200 MB` per 60 seconds is extremely small compared to the limit. Bandwidth was not the problem.
 
 I tried to find if any other issues occurred at the same time. You know, network issues usually cause a chain reaction of other errors.
 
@@ -78,14 +78,14 @@ In Kubernetes, when a pod asks for DNS resolution, it sends the request to `core
 
 This is actually normal behavior.
 
-1. `coreDNS` first tries to append cluster.local as a suffix. The record didn't exist, so it returned NXDOMAIN (Non-Existent Domain).
+1. `coreDNS` first tries to append cluster.local as a suffix. The record didn't exist, so it returned `NXDOMAIN` (Non-Existent Domain).
 
 2. Then, `coreDNS` tried the original domain name without the suffix. It found the record and returned NOERROR.
 
-My General Manager and a colleague saw NXDOMAIN and thought it was the root cause. They didn't know about this specific behavior in Kubernetes, so I had to explain it to them. I'm writing it here to remind myself too!
+My General Manager and a colleague saw `NXDOMAIN` and thought it was the root cause. They didn't know about this specific behavior in Kubernetes, so I had to explain it to them. I'm writing it here to remind myself too!
 
 The `coreDNS` exposes metrics via this config:
-```
+```sh
 prometheus 0.0.0.0:9153
 ```
 
@@ -95,7 +95,7 @@ Also, AWS EC2 instances have limits not just on bandwidth, but also on Connectio
 
 https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/monitoring-network-performance-ena.html
 
-Metricbeat struggles to collect these specific EC2 network metrics. So, I decided it was time to implement Prometheus with node-exporter.
+Metricbeat struggles to collect these specific EC2 network metrics. So, I decided it was time to implement Prometheus with `node-exporter`.
 
 Off-topic note: Why didn't I have Prometheus from the start? My client thought Metricbeat + ELK was enough. But in my opinion, Prometheus is much better for the Kubernetes world. Now was the perfect time to prove it.
 
@@ -103,7 +103,7 @@ Off-topic note: Why didn't I have Prometheus from the start? My client thought M
 
 I used the `kube-prometheus-stack` Helm chart and managed the deployment via `ArgoCD`.
 
-I customized values.yaml to enable `kubelet`, `coreDNS`, and `nodeExporter` metrics:
+I customized `values.yaml` to enable `kubelet`, `coreDNS`, and `nodeExporter` metrics:
 
 ```yaml
 kubelet:
@@ -136,7 +136,7 @@ First, I checked `coreDNS` again. The PHP DNS issue happened at `6th Aug 19:00 U
 
 I queried for all return codes (rcode) other than NOERROR. I only saw `NXDOMAIN`. There was no `SERVFAIL` or `REFUSED`. This confirmed coreDNS was healthy.
 
-So, `coreDNS` was fine, but the PHP app still failed to resolve DNS. This suggested something was blocking the traffic from the App to coreDNS.
+So, `coreDNS` was fine, but the PHP app still failed to resolve DNS. This suggested something was blocking the traffic from the App to `coreDNS`.
 
 Time to check the AWS Network Interface metrics:
 
@@ -153,7 +153,7 @@ And after check, I surprise that only the `pps_allowance_exceeded` has data
 
 ![pps_metrics](/images/post_1_curl_issue_kernel_out_of_quota/6.png)
 
-Although the metric show that there were some dropped packets but not too much, they could not cause 15.000 `cURL 65` error. 
+Although the metric show that there were some dropped packets but not too much, they could not cause 15k `cURL 65` error. 
 For the other metrics, all of them look good, nothing was dropped. 
 
 Once again, this drive me to blocked route. 
@@ -185,7 +185,7 @@ This made sense! As I mentioned, the application was sending thousands of reques
 
 The Linux kernel has a specific limit on how many packets it will process in a single "poll cycle". Here are the common default values in most Linux distros:
 
-```bash
+```zsh
 net.core.netdev_budget = 300 # Max packets processed in one poll cycle
 net.core.netdev_budget_usecs = 2000 # Time Budget to handle the packets, default 2 miliseconds
 net.core.netdev_max_backlog = 1000 # Max packets queued if the kernel can't keep up.
@@ -203,7 +203,7 @@ I needed to increase these limits. I created a new file in `/etc/sysctl.d/` on t
 sudo nano /etc/sysctl.d/99-network-tuning.conf
 ```
 And added these configurations:
-```bash
+```sh
 net.core.netdev_budget = 600
 net.core.netdev_budget_usecs = 4000
 net.core.netdev_max_backlog = 2000
