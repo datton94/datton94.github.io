@@ -1,0 +1,36 @@
+---
+---
+
+@import "base.scss";
+@import "text.scss";
+@import "list.scss";
+
+/* --- FIX 1: Make Images Responsive --- */
+img {
+  max-width: 100%;       /* Never wider than the screen */
+  height: auto;          /* Keep aspect ratio */
+  display: block;        /* Prevent weird spacing below images */
+  margin: 1rem auto;     /* Center images */
+  border-radius: 4px;    /* Optional: Slight rounding */
+}
+
+/* --- FIX 2: Scrollable Code Blocks --- */
+pre, code {
+  white-space: pre;       /* Respect formatting */
+  overflow-x: auto;       /* Add scrollbar if too wide */
+  max-width: 100%;        /* Keep inside the container */
+}
+
+/* Optional: Make the code block look cleaner */
+div.highlighter-rouge, figure.highlight {
+  margin-bottom: 1.5rem;
+  background: #2d2d2d;    /* Dark background */
+  border-radius: 5px;
+  padding: 10px;          /* Breathing room */
+}
+
+pre, code {
+  white-space: pre-wrap;  /* Forces text to wrap */
+  word-wrap: break-word;  /* Breaks long words */
+  overflow-x: hidden;     /* Hides scrollbar */
+}

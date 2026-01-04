@@ -1,0 +1,172 @@
+body {
+  max-width: 1200px;  /* Increase to 90 characters wide; or use 1200px for pixel-based, or none to remove limit */
+  margin: 3rem auto;  /* Keep centering */
+}
+
+
+blockquote {
+  border-left: 4px solid #a9a9a9;  /* Darker gray border; or #ff69b4 for deeper pink */
+  margin: 1em 0;
+  padding: 0.5em 1em;
+  color: #ebe9e9;  /* Darker text for better readability */
+  background-color: #392f61;  /* Deeper lavender background to match code blocks */
+  font-style: italic;  /* Optional for emphasis */
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+}
+
+blockquote blockquote {
+  border-left-color: #808080;  /* Even darker for nesting */
+}
+
+table {
+  border-collapse: collapse;  /* Merges borders for clean look */
+  margin: 1em 0;
+  width: 100%;  /* Full width for responsiveness */
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);  /* White glow; adjust rgba for intensity or to #87ceeb for blue pastel glow */
+  background-color: #392f61;  /* Light lavender base */
+}
+
+th, td {
+  border: 1px solid #a9a9a9;  /* Darker gray borders; or #ff69b4 for pink */
+  padding: 0.5em;
+  text-align: left;
+}
+
+th {
+  background-color: #392f61;  /* Deeper lavender for headers */
+  color: #f79558;  /* Dark text */
+  font-weight: bold;
+}
+
+tr:nth-child(even) {
+  background-color: #392f61;  /* Alternating rows for contrast */
+}
+
+/* Overlay always full screen */
+.medium-zoom-overlay {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 9998 !important;
+  background: rgba(0, 0, 0, 0.85) !important;
+}
+
+/* Disable theme flicker animation before and during zoom */
+body.mz-prepare,
+body.medium-zoom--opened {
+  animation: none !important;
+  transform: none !important;
+}
+
+/* Fix white blank image (theme filter or blend mode) */
+body.medium-zoom--opened .medium-zoom-image--opened,
+body.medium-zoom--opened .medium-zoom-image--open,
+body.medium-zoom--opened .medium-zoom-image {
+  filter: none !important;
+  -webkit-filter: none !important;
+  mix-blend-mode: normal !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  z-index: 9999 !important;
+}
+
+/* Fix global img margin affecting the zoomed clone */
+body.medium-zoom--opened .medium-zoom-image--opened,
+body.medium-zoom--opened .medium-zoom-image--open {
+  margin: 0 !important;
+}
+
+/* 1x default + optional 2x with pan */
+body.medium-zoom--opened img.medium-zoom-image.mz-fixed {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+
+  width: auto !important;
+  height: auto !important;
+
+  /* default: 1x */
+  --mz-scale: 1;
+  --mz-x: 0px;
+  --mz-y: 0px;
+
+  /* fit screen at 1x */
+  max-width: 95vw !important;
+  max-height: 95vh !important;
+
+  margin: 0 !important;
+  transform: translate(
+      calc(-50% + var(--mz-x)),
+      calc(-50% + var(--mz-y))
+    )
+    scale(var(--mz-scale)) !important;
+}
+
+/* When user chooses 2x, allow bigger than viewport and drag */
+body.medium-zoom--opened img.medium-zoom-image.mz-fixed.mz-200 {
+  max-width: none !important;
+  max-height: none !important;
+
+  cursor: grab;
+
+  /* critical for mobile drag */
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+}
+
+body.medium-zoom--opened img.medium-zoom-image.mz-fixed.mz-200:active {
+  cursor: grabbing;
+}
+
+/* Toggle button (1x / 2x) */
+.mz-zoom-toggle {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 10000;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  cursor: pointer;
+}
+
+/* Inline code only. Do NOT touch Rouge code blocks (.highlight / pre) */
+:not(pre) > code:not([class]),
+p code,
+li code,
+blockquote code,
+td code {
+  display: inline !important;
+  padding: 0.1em 0.3em !important;
+  margin: 0 !important;
+
+  font-size: 0.95em !important;
+  line-height: 1.2 !important;
+
+  border-radius: 4px !important;
+
+  /* keep it calm, no huge glow or block style */
+  text-shadow: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+  transform: none !important;
+
+  /* optional: subtle background so it is readable */
+  background: rgba(127, 127, 127, 0.18) !important;
+}
+
+/* Safety: never override Rouge highlighting blocks */
+.highlight code,
+.highlight pre,
+pre code {
+  background: initial;
+  text-shadow: initial;
+  box-shadow: initial;
+  filter: initial;
+  -webkit-filter: initial;
+  transform: initial;
+}
