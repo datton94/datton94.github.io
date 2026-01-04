@@ -1,6 +1,14 @@
 ---
 layout: default
 title: How My Client Hit Linux Kernel Network Limits on AWS EKS
+tags:
+  - linux
+  - troubleshooting
+  - devops
+  - curl
+  - aws
+  - eks
+  - ec2
 ---
 
 # The issue

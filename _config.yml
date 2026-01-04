@@ -96,3 +96,22 @@ paginate_path: "/blog/page:num/"
 header_pages:
   - index.md
   - about.md
+
+
+############ for SEO ##############
+title: Dat Ton DevOps Blog
+description: DevOps notes, learning logs, and real world troubleshooting.
+url: "https://datton94.github.io"   # or your custom domain
+baseurl: ""                                     # empty for user site, or "/repo" for project site
+
+author:
+  name: Dat Ton
+
+social:
+  name: Dat Ton
+  links:
+    - https://github.com/datton94
+    - https://www.linkedin.com/in/dat-ton-that-thanh-928704111
+    - https://dev.to/datton94
+
+lang: en
