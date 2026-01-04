@@ -136,7 +136,7 @@ metadata:
   namespace: <your-namespace>
 spec:
   hosts:
-    - host2.dev.au.symbio.global
+    - host2.yourdomain.com
   http:
     - retries:
         attempts: 3
