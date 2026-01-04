@@ -91,7 +91,7 @@ This is actually normal behavior.
 
 2. Then, `coreDNS` tried the original domain name without the suffix. It found the record and returned NOERROR.
 
-My General Manager and a colleague saw `NXDOMAIN` and thought it was the root cause. They didn't know about this specific behavior in Kubernetes, so I had to explain it to them. I'm writing it here to remind myself too!
+My client saw `NXDOMAIN` and thought it was the root cause. They didn't know about this specific behavior in Kubernetes, so I had to explain it to them. I'm writing it here to remind myself too!
 
 The `coreDNS` exposes metrics via this config:
 ```sh
