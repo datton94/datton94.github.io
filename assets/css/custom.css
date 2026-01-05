@@ -170,3 +170,16 @@ pre code {
   -webkit-filter: initial;
   transform: initial;
 }
+
+/* Mobile fix: prevent body::before from overflowing */
+@media (max-width: 768px) {
+  body::before {
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;      /* avoid 100vw overflow */
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+
+    transform: none !important;  /* if theme uses translateX */
+  }
+}
