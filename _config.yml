@@ -115,3 +115,12 @@ social:
     - https://dev.to/datton94
 
 lang: en
+
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      image: /images/default_banner.jpg
+
