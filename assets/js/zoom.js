@@ -15,16 +15,52 @@ document.addEventListener("DOMContentLoaded", function () {
   let openedEl = null;
   let toggleBtn = null;
 
-  // zoom levels cycle
   const LEVELS = [1, 1.5, 2];
   let levelIndex = 0;
 
-  // drag state (only used in >1x mode)
+  // drag state
   let dragging = false;
   let startX = 0;
   let startY = 0;
   let baseX = 0;
   let baseY = 0;
+
+  // Apply and remove root fixes so fixed positioning uses real viewport
+  const root = document.documentElement;
+  const body = document.body;
+
+  function setImp(el, prop, val) {
+    el.style.setProperty(prop, val, "important");
+  }
+  function rm(el, prop) {
+    el.style.removeProperty(prop);
+  }
+
+  function rootFixOn() {
+    root.classList.add("mz-root-open");
+
+    // kill centered body layout + flicker effects during zoom
+    setImp(body, "margin", "0");
+    setImp(body, "max-width", "none");
+    setImp(body, "width", "100%");
+    setImp(body, "animation", "none");
+    setImp(body, "transform", "none");
+    setImp(body, "filter", "none");
+    setImp(body, "overflow", "hidden");
+
+    setImp(root, "animation", "none");
+    setImp(root, "transform", "none");
+    setImp(root, "filter", "none");
+  }
+
+  function rootFixOff() {
+    root.classList.remove("mz-root-open");
+
+    ["margin", "max-width", "width", "animation", "transform", "filter", "overflow"].forEach((p) =>
+      rm(body, p)
+    );
+    ["animation", "transform", "filter"].forEach((p) => rm(root, p));
+  }
 
   function pxVar(el, name) {
     const v = el.style.getPropertyValue(name);
@@ -43,11 +79,10 @@ document.addEventListener("DOMContentLoaded", function () {
     openedEl.style.setProperty("--mz-scale", String(level));
     if (toggleBtn) toggleBtn.textContent = `${level}x`;
 
-    // allow drag only when zoomed (> 1)
     if (level > 1) {
-      openedEl.classList.add("mz-200"); // reuse your CSS drag rules
+      openedEl.classList.add("mz-pan");
     } else {
-      openedEl.classList.remove("mz-200");
+      openedEl.classList.remove("mz-pan");
       setPan(openedEl, 0, 0);
     }
   }
@@ -59,7 +94,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function onPointerDown(e) {
     if (!openedEl) return;
-
     const current = parseFloat(openedEl.style.getPropertyValue("--mz-scale")) || 1;
     if (current <= 1) return;
 
@@ -95,7 +129,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function onPointerUp(e) {
     if (!openedEl) return;
-
     if (openedEl.hasPointerCapture(e.pointerId)) openedEl.releasePointerCapture(e.pointerId);
 
     if (dragging) {
@@ -135,7 +168,7 @@ document.addEventListener("DOMContentLoaded", function () {
     levelIndex = 0;
     setZoomLevel(LEVELS[levelIndex]);
 
-    // do not close zoom when clicking the image while zoomed
+    // Stop close while zoomed and user clicks on image
     openedEl.addEventListener(
       "click",
       function (e) {
@@ -155,7 +188,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function cleanupOpened() {
     if (openedEl) {
-      openedEl.classList.remove("mz-fixed", "mz-200");
+      openedEl.classList.remove("mz-fixed", "mz-pan");
       openedEl.style.removeProperty("--mz-scale");
       openedEl.style.removeProperty("--mz-x");
       openedEl.style.removeProperty("--mz-y");
@@ -166,7 +199,6 @@ document.addEventListener("DOMContentLoaded", function () {
       openedEl.removeEventListener("pointerup", onPointerUp);
       openedEl.removeEventListener("pointercancel", onPointerUp);
     }
-
     openedEl = null;
     removeToggleButton();
   }
@@ -189,10 +221,17 @@ document.addEventListener("DOMContentLoaded", function () {
     if (el && el !== openedEl) attachOpened(el);
   });
 
-  zoom.on("close", cleanupOpened);
-  zoom.on("closed", cleanupOpened);
+  zoom.on("close", () => {
+    cleanupOpened();
+    rootFixOff();
+  });
+  zoom.on("closed", () => {
+    cleanupOpened();
+    rootFixOff();
+  });
 
-  // Intercept click before medium zoom handler
+  // Intercept click before medium zoom handler:
+  // enable root fix BEFORE open so geometry is correct on mobile
   document.addEventListener(
     "click",
     function (e) {
@@ -204,7 +243,9 @@ document.addEventListener("DOMContentLoaded", function () {
       e.preventDefault();
       e.stopImmediatePropagation();
 
-      document.body.classList.add("mz-prepare");
+      rootFixOn();
+
+      // force reflow
       void document.body.offsetHeight;
 
       requestAnimationFrame(() => {
@@ -213,7 +254,4 @@ document.addEventListener("DOMContentLoaded", function () {
     },
     true
   );
-
-  zoom.on("opened", () => document.body.classList.remove("mz-prepare"));
-  zoom.on("closed", () => document.body.classList.remove("mz-prepare"));
 });
