@@ -12,9 +12,13 @@ canonical_url: https://datton94.github.io/troubleshooting-istio-503-upstream-con
 
 # The Error
 
-If you are running Kubernetes with Istio and suddenly see this error in your logs, this post is for you.
+I manage a Kubernetes cluster for my client using Istio. The Application Team reported a 503 error with their pods. After investigating, I found that the error came from the `istio-proxy` sidecar. Please see the log below.
 
 > "message":"API returned status: 503, body: upstream connect error or disconnect/reset before headers. reset reason: connection termination, header:map[Content-Length:[95] Content-Type:[text/plain] Date:[Wed, 25 Sep 2024 09:59:46 GMT] Server:[envoy]"
+
+You see the the `Server:[envoy]` in the log, that's the `istio-proxy` sidecar.
+
+If you are running Kubernetes with Istio and suddenly see this error in your logs, this post is for you.
 
 This error usually happens when your pods use Istio-proxy to talk to an external domain (a website or API outside your Kubernetes cluster).
 
